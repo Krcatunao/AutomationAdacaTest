@@ -1,0 +1,294 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 4,
+    "passes": 3,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-10-24T03:56:21.811Z",
+    "end": "2025-10-24T03:57:29.266Z",
+    "duration": 67455,
+    "testsRegistered": 4,
+    "passPercent": 75,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "6d40be3a-423c-4ddc-935d-f4a00499775a",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0da2b9de-5f3c-49d3-8137-43b7efafd143",
+          "title": "Inventory Page Tests",
+          "fullFile": "/Users/kimrobertcatunao/Documents/GitHub/AutomationAdacaTest/tests/inventory.test.js",
+          "file": "/tests/inventory.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Inventory Page Tests\"",
+              "fullTitle": "Inventory Page Tests \"before all\" hook in \"Inventory Page Tests\"",
+              "timedOut": false,
+              "duration": 815,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await createDriver();\nloginPage = new LoginPage(driver);\ninventoryPage = new InventoryPage(driver);",
+              "err": {},
+              "uuid": "6bce5413-d20d-42e6-8d10-32f831aef1ed",
+              "parentUUID": "0da2b9de-5f3c-49d3-8137-43b7efafd143",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Inventory Page Tests\"",
+              "fullTitle": "Inventory Page Tests \"after all\" hook in \"Inventory Page Tests\"",
+              "timedOut": false,
+              "duration": 54,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "if (driver) await driver.quit();\n// Print a short test summary\nrecordTest(this.test);\nprintSummary();",
+              "err": {},
+              "uuid": "8dd16273-bd26-4932-8218-5b0b7deae8f9",
+              "parentUUID": "0da2b9de-5f3c-49d3-8137-43b7efafd143",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"after each\" hook in \"Inventory Page Tests\"",
+              "fullTitle": "Inventory Page Tests \"after each\" hook in \"Inventory Page Tests\"",
+              "timedOut": false,
+              "duration": 243,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "if (this.currentTest && driver) {\n  try {\n    const { saveScreenshot } = require(\"../utils/driver\");\n    const addContext = require(\"mochawesome/addContext\");\n    const state = this.currentTest.state || \"unknown\";\n    const ts = new Date().toISOString().replace(/[:.]/g, \"-\");\n    const safeName = `${this.currentTest.title}__${state}__${ts}`.replace(/[^a-z0-9\\-]/gi, \"_\").toLowerCase();\n    const destUnderReport = `mochawesome-report/screenshots/${safeName}.png`;\n    await saveScreenshot(driver, destUnderReport);\n    const reportRelativePath = `screenshots/${safeName}.png`;\n    addContext(this, reportRelativePath);\n    // record test outcome\n    recordTest(this.currentTest);\n  } catch (err) {\n    console.warn(\"[WARN] Could not capture screenshot:\", err && err.message ? err.message : err);\n  }\n}",
+              "err": {},
+              "uuid": "a2908e64-5dad-4fd1-b507-3ef85a0e63d1",
+              "parentUUID": "0da2b9de-5f3c-49d3-8137-43b7efafd143",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Add to cart single item scenario",
+              "fullTitle": "Inventory Page Tests Add to cart single item scenario",
+              "timedOut": false,
+              "duration": 14098,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "\"screenshots/add_to_cart_single_item_scenario__passed__2025-10-24t03-56-36-729z.png\"",
+              "code": "const itemName = testData.testItem.name;\nlogger.info(`Starting Add to cart scenario for item: ${itemName}`);\ntry {\nawait loginPage.open();\nawait loginPage.login(testData.validUser.username, testData.validUser.password);\nlogger.info('Verifying landed on Swag Labs page...');\nexpect(await inventoryPage.isAtInventoryPage()).to.be.true;\nconst displayed = await inventoryPage.addToCartByName(itemName);\nlogger.debug(`Added item name returned: ${displayed}`);\nlogger.info('Verifying Remove button visible...');\nconst removeVisible = await inventoryPage.isRemoveButtonVisible(itemName);\nexpect(removeVisible).to.be.true;\nlogger.debug('Clicking cart button...');\nawait inventoryPage.clickCart();\nlogger.info('Verifying at Cart page...');\nexpect(await inventoryPage.isAtCartPage()).to.be.true;\nlogger.info('Verifying item present in cart...');\nexpect(await inventoryPage.isItemInCart(displayed)).to.be.true;\n} catch (err) {\n  logger.error('Add to cart scenario failed:', err && err.message ? err.message : err);\n  throw err;\n}",
+              "err": {},
+              "uuid": "fe8c1c7a-caed-4536-9435-f8817c700aeb",
+              "parentUUID": "0da2b9de-5f3c-49d3-8137-43b7efafd143",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Delete an item in Product Page",
+              "fullTitle": "Inventory Page Tests Delete an item in Product Page",
+              "timedOut": false,
+              "duration": 23865,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "\"screenshots/delete_an_item_in_product_page__failed__2025-10-24t03-57-00-736z.png\"",
+              "code": "const itemName = testData.testItem.name;\nlogger.info(`Starting Delete item scenario for item: ${itemName}`);\ntry {\n  await loginPage.open();\n  await loginPage.login(testData.validUser.username, testData.validUser.password);\n  expect(await inventoryPage.isAtInventoryPage()).to.be.true;\n  await inventoryPage.addToCartByName(itemName);\n  expect(await inventoryPage.isRemoveButtonVisible(itemName)).to.be.true;\n\n  logger.debug('Removing the item from product page...');\n  await inventoryPage.removeFromCartByName(itemName);\n  // After remove, the remove button should no longer be present; the add button should be present instead\n  const stillRemoveVisible = await inventoryPage.isRemoveButtonVisible(itemName);\n  expect(stillRemoveVisible).to.be.false;\n} catch (err) {\n  logger.error('Delete item scenario failed:', err && err.message ? err.message : err);\n  throw err;\n}",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[text()=\"Sauce Labs Backpack\"]//ancestor::div[contains(@class,'inventory_item')]//button[text()='Add to cart'])\nWait timed out after 10107ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[text()=\"Sauce Labs Backpack\"]//ancestor::div[contains(@class,'inventory_item')]//button[text()='Add to cart'])\nWait timed out after 10107ms\n    at /Users/kimrobertcatunao/Documents/GitHub/AutomationAdacaTest/node_modules/selenium-webdriver/lib/webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+                "diff": null
+              },
+              "uuid": "425274a6-67ce-4322-b71f-ab73ab45adce",
+              "parentUUID": "0da2b9de-5f3c-49d3-8137-43b7efafd143",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "fe8c1c7a-caed-4536-9435-f8817c700aeb"
+          ],
+          "failures": [
+            "425274a6-67ce-4322-b71f-ab73ab45adce"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 37963,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "910703ec-95af-4e23-bc3a-2f794322ce66",
+          "title": "Login Page Tests",
+          "fullFile": "/Users/kimrobertcatunao/Documents/GitHub/AutomationAdacaTest/tests/login.test.js",
+          "file": "/tests/login.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Login Page Tests\"",
+              "fullTitle": "Login Page Tests \"before all\" hook in \"Login Page Tests\"",
+              "timedOut": false,
+              "duration": 780,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "logger.info('Initializing WebDriver...');\ntry {\n  driver = await createDriver();\n  loginPage = new LoginPage(driver);\n  logger.info('WebDriver initialized successfully.');\n} catch (err) {\n  logger.error('Failed to initialize WebDriver:', err);\n  throw err; // Stop tests if WebDriver fails\n}",
+              "err": {},
+              "uuid": "ae81e10f-ba66-4738-a14d-788eea506357",
+              "parentUUID": "910703ec-95af-4e23-bc3a-2f794322ce66",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"Login Page Tests\"",
+              "fullTitle": "Login Page Tests \"after all\" hook in \"Login Page Tests\"",
+              "timedOut": false,
+              "duration": 53,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "if (driver) {\n  try {\n    logger.info('Closing browser...');\n    await driver.quit();\n    logger.info('Browser closed successfully.');\n  } catch (err) {\n    logger.warn('Error closing browser:', err);\n  }\n}\n// Print a short test summary\nrecordTest(this.test); // record the suite test if any\nprintSummary();",
+              "err": {},
+              "uuid": "7d8c0c62-6df1-4030-b0cc-8dc6bab4a83c",
+              "parentUUID": "910703ec-95af-4e23-bc3a-2f794322ce66",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"after each\" hook in \"Login Page Tests\"",
+              "fullTitle": "Login Page Tests \"after each\" hook in \"Login Page Tests\"",
+              "timedOut": false,
+              "duration": 133,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "if (this.currentTest && driver) {\n  try {\n    const { saveScreenshot } = require(\"../utils/driver\");\n    const addContext = require(\"mochawesome/addContext\");\n    const state = this.currentTest.state || \"unknown\";\n    const ts = new Date().toISOString().replace(/[:.]/g, \"-\");\n    const safeName = `${this.currentTest.title}__${state}__${ts}`.replace(/[^a-z0-9\\-]/gi, \"_\").toLowerCase();\n    const destUnderReport = `mochawesome-report/screenshots/${safeName}.png`;\n    await saveScreenshot(driver, destUnderReport);\n    const reportRelativePath = `screenshots/${safeName}.png`;\n    addContext(this, reportRelativePath);\n    // record test outcome\n    const { recordTest } = require(\"../utils/testReporter\");\n    recordTest(this.currentTest);\n  } catch (err) {\n    logger.warn('Could not capture screenshot:', err && err.message ? err.message : err);\n  }\n}",
+              "err": {},
+              "uuid": "ee4bb9bc-7f26-4ad6-94a4-c6a1ccb0273c",
+              "parentUUID": "910703ec-95af-4e23-bc3a-2f794322ce66",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "should login successfully with valid credentials",
+              "fullTitle": "Login Page Tests should login successfully with valid credentials",
+              "timedOut": false,
+              "duration": 13640,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "\"screenshots/should_login_successfully_with_valid_credentials__passed__2025-10-24t03-57-15-455z.png\"",
+              "code": "logger.info('Opening login page...');\nawait loginPage.open();\n  // Use the shared utility to create a traceable username (not actually used for auth here)\n  const { addTimestamp } = require(\"../utils/stringUtil\");\n  const traceableUser = addTimestamp(testData.validUser.username);\n  logger.info(`Logging in with valid credentials (trace id: ${traceableUser})...`);\n  await loginPage.login(testData.validUser.username, testData.validUser.password);\n  logger.info(\"Waiting for page title to contain 'Swag Labs'...\");\n  await loginPage.waitForPageTitleContains(\"Swag Labs\");\n  const title = await driver.getTitle();\n  logger.debug(`Page title received: ${title}`);\n  expect(title).to.include(\"Swag Labs\");",
+              "err": {},
+              "uuid": "2c3475e1-4ea2-420f-b9a8-f7cb634d30ca",
+              "parentUUID": "910703ec-95af-4e23-bc3a-2f794322ce66",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should display error message for invalid credentials",
+              "fullTitle": "Login Page Tests should display error message for invalid credentials",
+              "timedOut": false,
+              "duration": 13357,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "\"screenshots/should_display_error_message_for_invalid_credentials__passed__2025-10-24t03-57-29-080z.png\"",
+              "code": "logger.info('Opening login page...');\nawait loginPage.open();\nlogger.info('Logging in with invalid credentials...');\nawait loginPage.login(testData.invalidUser.username, testData.invalidUser.password);\nlogger.info('Fetching error message...');\nconst error = await loginPage.getErrorMessage();\nlogger.debug(`Error message received: ${error}`);\nexpect(error).to.contain(\"Epic sadface\");",
+              "err": {},
+              "uuid": "d4b81533-572d-45e6-84ff-ffefc8c6344d",
+              "parentUUID": "910703ec-95af-4e23-bc3a-2f794322ce66",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2c3475e1-4ea2-420f-b9a8-f7cb634d30ca",
+            "d4b81533-572d-45e6-84ff-ffefc8c6344d"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 26997,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.4"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.0"
+    }
+  }
+}
